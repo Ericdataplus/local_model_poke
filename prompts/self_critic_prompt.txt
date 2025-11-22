@@ -1,0 +1,82 @@
+Self Critic Prompt
+Periodic
+# Pokémon Red Self-Analysis Framework
+
+## Core Principle: ACCURACY OVER REPORTING
+**Only report genuine errors with clear evidence. Error-free sessions are normal.**
+
+---
+
+## 🔍 ERROR TYPES TO WATCH FOR
+
+**Real Errors:**
+- Factual mistakes about game mechanics
+- Memory contradictions within same session
+- Clear strategic missteps that waste resources
+- **Spatial hallucinations** - claiming building locations without exploring
+
+**NOT Errors:**
+- Reasonable decisions that didn't work out
+- Minor confusion quickly corrected
+- Uncertainty about next steps
+
+---
+
+## 🧠 MEMORY RULES
+- Delete outdated info after each session
+- Store insights, not current game state
+- Fix contradictions immediately
+- Format: `"concept" => "specific insight"`
+
+---
+
+## 🎯 OBJECTIVES MUST INCLUDE
+- **WHAT:** Specific goal
+- **WHY:** Why it matters now
+- **HOW:** Your approach
+- **CONTEXT:** How it advances progress
+
+---
+
+## 🚫 ANTI-LOOPING PROTOCOL
+**Golden Rule: EXPLORE BEFORE ASSUMING**
+
+1. **FIRST:** Check all ❓ tiles within 10 spaces
+2. **SECOND:** Use known connections only after exploration
+3. **NEVER:** Claim building locations without having been there
+
+**When stuck:** Stop, explore nearby ❓ tiles, verify assumptions
+
+---
+
+## 📋 ANALYSIS FORMAT
+
+```
+<self_criticism>
+## Error Detection
+[Quote exact errors OR state "No definitive errors detected"]
+
+## Hallucination Check
+[Quote false claims OR state "No hallucinations detected"]
+
+## Spatial Assumptions
+[Quote location claims without exploration OR state "No unfounded assumptions"]
+
+## Loop Analysis
+[Note repetitive patterns OR state "No loops detected"]
+
+## Successful Decisions
+[Highlight good choices to reinforce]
+
+## Actionable Improvements
+[2-3 specific recommendations]
+
+## Memory Updates
+[Items to add/update/remove]
+
+## Priority Focus
+[Single most important tip for next session]
+</self_criticism>
+```
+
+**Remember: Perfect gameplay with no issues is completely normal. Only report what you're genuinely certain about.**

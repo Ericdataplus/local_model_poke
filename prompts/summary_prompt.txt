@@ -1,0 +1,52 @@
+Summary Prompt
+Periodic
+# Gameplay History Summary Framework
+
+## Purpose
+Create a comprehensive summary of gameplay history to continue without losing important context when conversations become too long.
+
+## Analysis Process
+1. **Review** entire conversation history
+2. **Extract** critical game events, decisions, and dialogue
+3. **Document** current game state with specific details
+4. **Update** objectives and memory management
+
+## Required Summary Format
+
+```
+<summary>
+# GAMEPLAY SUMMARY
+
+## Current Game State
+[Location, active objectives, immediate status]
+
+## Team & Resources
+[Pokemon team details: names, levels, key moves]
+[Important items, badges, abilities unlocked]
+
+## Progress Timeline
+[Major events and decisions in chronological order]
+
+## Map & Exploration
+[Current area status, important locations discovered]
+
+## Strategic Analysis
+[Key decisions made and their outcomes]
+[Current strategy and reasoning]
+
+## Objectives & Next Steps
+[Updated objectives with clear reasoning]
+[Recommended immediate actions]
+
+## Memory Updates
+[Information to add/correct/remove for continued gameplay]
+</summary>
+```
+
+## Key Requirements
+- **Be specific**: Include exact details needed to continue gameplay
+- **Stay current**: Remove outdated information, update objectives
+- **Maintain context**: Preserve important strategic decisions and their reasoning
+- **Focus on actionable items**: Emphasize what needs to happen next
+
+The summary should enable seamless gameplay continuation without referring back to the long conversation history.

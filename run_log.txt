@@ -1,0 +1,257 @@
+=== NEW RUN ===
+[SYSTEM] System initialized. Starting game loop...
+[SYSTEM] State: Location: Player's House 2F (24, 7) at (3, 3)
+Party Count: 0
+
+## Map View
+
+**Player Position:** (3, 3)
+**Map Size:** 140x80
+
+| Y\X | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| **-2** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **-1** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **0** | ⬛ | ⬛ | ⬜ | 👤 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **1** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **2** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **3** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | 🧍 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **4** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **5** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **6** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **7** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **8** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+
+**Legend:**
+- 🧍 Player (YOU)
+- 🚪 Exit/Door/Stairs
+- 👤 NPC/Object
+- ⬜ Walkable tile
+- 🟫 Obstacle/Blocked
+- ⬛ Out of bounds
+
+## Movement Information
+**Facing:** DOWN ↓
+
+**Can Move:**
+- DOWN: ✅ Yes
+- UP: ✅ Yes
+- LEFT: ✅ Yes
+- RIGHT: ✅ Yes
+[SYSTEM] Requesting AI action...
+[AI] Thought: Okay, let's start the game! I need to leave my house.
+
+```json
+{
+  "function": "key_press",
+  "arguments": {
+    "keys": ["down"],
+    "reasoning": "Moving 1 tile down from (3,3) to (4,3)."
+  }
+}
+```
+[TOOL] Parsed fallback action: key_press({'keys': ['down'], 'reasoning': 'Moving 1 tile down from (3,3) to (4,3).'})
+[TOOL] Executing: key_press({'keys': ['down'], 'reasoning': 'Moving 1 tile down from (3,3) to (4,3).'})
+[SYSTEM] State: Location: Player's House 2F (24, 7) at (3, 4)
+Party Count: 0
+
+## Map View
+
+**Player Position:** (3, 4)
+**Map Size:** 140x80
+
+| Y\X | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| **-1** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **0** | ⬛ | ⬛ | ⬜ | 👤 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **1** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **2** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **3** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **4** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | 🧍 | 🟫 | ⬜ | ⬜ | ⬜ | ⬜ |
+| **5** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **6** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **7** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **8** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **9** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+
+**Legend:**
+- 🧍 Player (YOU)
+- 🚪 Exit/Door/Stairs
+- 👤 NPC/Object
+- ⬜ Walkable tile
+- 🟫 Obstacle/Blocked
+- ⬛ Out of bounds
+
+## Movement Information
+**Facing:** UNKNOWN
+
+**Can Move:**
+- DOWN: ✅ Yes
+- UP: ✅ Yes
+- LEFT: ✅ Yes
+- RIGHT: ❌ No
+[SYSTEM] Requesting AI action...
+[AI] Thought: 
+
+Current state:
+Location: Player's House 2F (24, 7) at (3, 4)
+Party Count: 0
+
+## Map View
+
+**Player Position:** (3, 4)
+**Map Size:** 140x80
+
+| Y\X | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| **-1** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+[AI] No action taken.
+[WARNING] Your last movement action did NOT change your location. You are likely walking into a wall. Try a different direction.
+[SYSTEM] State: Location: Player's House 2F (24, 7) at (3, 4)
+Party Count: 0
+
+## Map View
+
+**Player Position:** (3, 4)
+**Map Size:** 140x80
+
+| Y\X | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| **-1** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **0** | ⬛ | ⬛ | ⬜ | 👤 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **1** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **2** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **3** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **4** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | 🧍 | 🟫 | ⬜ | ⬜ | ⬜ | ⬜ |
+| **5** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **6** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **7** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **8** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **9** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+
+**Legend:**
+- 🧍 Player (YOU)
+- 🚪 Exit/Door/Stairs
+- 👤 NPC/Object
+- ⬜ Walkable tile
+- 🟫 Obstacle/Blocked
+- ⬛ Out of bounds
+
+## Movement Information
+**Facing:** UNKNOWN
+
+**Can Move:**
+- DOWN: ✅ Yes
+- UP: ✅ Yes
+- LEFT: ✅ Yes
+- RIGHT: ❌ No
+[SYSTEM] Requesting AI action...
+[AI] Thought: 
+
+I am at (3, 4), and I tried to move right but it's blocked. The map shows an obstacle at (4, 5). I need to find a way around this. Let's try moving up first.
+
+```json
+{
+  "function": "key_press",
+  "arguments": {
+    "keys": ["up"],
+    "reasoning": "Moving 1 tile up from (3,4) to (2,4)."
+  }
+}
+```
+[TOOL] Parsed fallback action: key_press({'keys': ['up'], 'reasoning': 'Moving 1 tile up from (3,4) to (2,4).'})
+[TOOL] Executing: key_press({'keys': ['up'], 'reasoning': 'Moving 1 tile up from (3,4) to (2,4).'})
+[WARNING] Your last movement action did NOT change your location. You are likely walking into a wall. Try a different direction.
+[SYSTEM] State: Location: Player's House 2F (24, 7) at (3, 4)
+Party Count: 0
+
+## Map View
+
+**Player Position:** (3, 4)
+**Map Size:** 140x80
+
+| Y\X | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| **-1** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **0** | ⬛ | ⬛ | ⬜ | 👤 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **1** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **2** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **3** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **4** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | 🧍 | 🟫 | ⬜ | ⬜ | ⬜ | ⬜ |
+| **5** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **6** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **7** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **8** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **9** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+
+**Legend:**
+- 🧍 Player (YOU)
+- 🚪 Exit/Door/Stairs
+- 👤 NPC/Object
+- ⬜ Walkable tile
+- 🟫 Obstacle/Blocked
+- ⬛ Out of bounds
+
+## Movement Information
+**Facing:** UNKNOWN
+
+**Can Move:**
+- DOWN: ✅ Yes
+- UP: ✅ Yes
+- LEFT: ✅ Yes
+- RIGHT: ❌ No
+[SYSTEM] Requesting AI action...
+[AI] Thought: 
+
+I am at (3, 4), and I tried to move right but it's blocked. The map shows an obstacle directly to the right. I need to find a way around this obstacle. Let me examine my surroundings more closely. There is an NPC one tile to the north-east. It might be useful to talk to them or at least get closer.
+
+```json
+{
+  "function": "key_press",
+  "arguments": {
+    "keys": ["up"],
+    "reasoning": "Moving 1 tile up from (3,4) to (2,4). Getting closer to the NPC."
+  }
+}
+```
+[TOOL] Parsed fallback action: key_press({'keys': ['up'], 'reasoning': 'Moving 1 tile up from (3,4) to (2,4). Getting closer to the NPC.'})
+[TOOL] Executing: key_press({'keys': ['up'], 'reasoning': 'Moving 1 tile up from (3,4) to (2,4). Getting closer to the NPC.'})
+[SYSTEM] State: Location: Player's House 2F (24, 7) at (3, 3)
+Party Count: 0
+
+## Map View
+
+**Player Position:** (3, 3)
+**Map Size:** 140x80
+
+| Y\X | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| **-2** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **-1** | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ | ⬛ |
+| **0** | ⬛ | ⬛ | ⬜ | 👤 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **1** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **2** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **3** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | 🧍 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **4** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **5** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **6** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **7** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **8** | ⬛ | ⬛ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+
+**Legend:**
+- 🧍 Player (YOU)
+- 🚪 Exit/Door/Stairs
+- 👤 NPC/Object
+- ⬜ Walkable tile
+- 🟫 Obstacle/Blocked
+- ⬛ Out of bounds
+
+## Movement Information
+**Facing:** DOWN ↓
+
+**Can Move:**
+- DOWN: ✅ Yes
+- UP: ✅ Yes
+- LEFT: ✅ Yes
+- RIGHT: ✅ Yes
+[SYSTEM] Requesting AI action...
