@@ -130,6 +130,10 @@ def calculate_path_from_data(pathfinding_data: dict) -> dict:
         if is_blocked:
             obstacles.add((x, y))
 
+    # Ensure target is NOT an obstacle (allow entering warps/stairs)
+    if (target['x'], target['y']) in obstacles:
+        obstacles.remove((target['x'], target['y']))
+
     # Run A*
     path = astar_pathfind(
         player['x'], player['y'],

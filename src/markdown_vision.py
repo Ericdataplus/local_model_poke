@@ -154,6 +154,25 @@ def get_warp_positions(pyboy):
     Get all warp/exit positions on current map.
     Pokemon Crystal stores warps differently than Red/Blue.
     """
+    # CHECK MANUAL WARPS FIRST - they're 100% reliable
+    map_group = pyboy.memory[0xDCB5]
+    map_number = pyboy.memory[0xDCB6]
+    
+    manual_warps = {
+        (1, 1): [(7, 0)],     # Player's House 2F
+        (1, 2): [(9, 0), (6, 7)], # Player's House 1F (Stairs + Front Door)
+        (3, 1): [(4, 7)],     # Rival's House 2F
+        (2, 1): [(3, 11)],    # Professor Elm's Lab
+        (24, 7): [(7, 0)],    # Player's House 2F (alternate ID)
+        (24, 6): [(6, 7)],    # Player's House 1F (alternate ID)
+    }
+    
+    key = (map_group, map_number)
+    if key in manual_warps:
+        print(f"[DEBUG] ✓ Using MANUAL warp for map {key}: {manual_warps[key]}")
+        return manual_warps[key]
+    
+    # If not a known map, try RAM reading (often unreliable)
     warps = []
 
     # Try multiple possible warp count addresses for Pokemon Crystal

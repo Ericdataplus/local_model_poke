@@ -131,20 +131,26 @@ class PokemonAgent:
         self.history = []
         self.walkthrough = walkthrough_manager
 
-    def get_action(self, image_base64, game_state, feedback=""):
+    def get_action(self, image_base64, game_state, feedback="", guidance=""):
         try:
             user_content = [
-                {"type": "text", "text": f"GAME STATE:\n{game_state}"},
-                {
+                {"type": "text", "text": f"GAME STATE:\n{game_state}"}
+            ]
+            
+            if image_base64:
+                user_content.append({
                     "type": "image_url",
                     "image_url": {
                         "url": f"data:image/png;base64,{image_base64}"
                     },
-                },
-            ]
+                })
             
             if feedback:
                 user_content.insert(0, {"type": "text", "text": f"⚠️ FEEDBACK: {feedback}"})
+                
+            if guidance:
+                self.history = [] # Clear history to break loops
+                user_content.insert(0, {"type": "text", "text": f"🔔 USER GUIDANCE: {guidance}"})
 
             messages = [
                 {"role": "system", "content": SYSTEM_PROMPT},
@@ -248,6 +254,18 @@ class PokeGUI:
         self.game_label = tk.Label(self.game_frame, bg="black")
         self.game_label.pack(expand=True)
         
+        # User Guidance
+        self.control_frame = tk.Frame(self.game_frame, bg="black")
+        self.control_frame.pack(fill=tk.X, pady=10)
+        
+        self.guidance_var = tk.StringVar()
+        self.guidance_entry = tk.Entry(self.control_frame, textvariable=self.guidance_var, font=("Consolas", 12))
+        self.guidance_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+        self.guidance_entry.bind("<Return>", lambda e: self.send_guidance())
+        
+        self.send_btn = tk.Button(self.control_frame, text="Send Guidance", command=self.send_guidance, bg="#007acc", fg="white")
+        self.send_btn.pack(side=tk.RIGHT, padx=5)
+        
         # Right Side: Logs
         self.log_frame = tk.Frame(self.main_frame, bg="#1e1e1e")
         self.log_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)
@@ -280,6 +298,7 @@ class PokeGUI:
         self.last_x = -1
         self.last_y = -1
         self.last_action = ""
+        self.user_guidance = ""
         
         # File logging - overwrite on each run
         self.log_file = open("run_log.txt", "w", encoding="utf-8")
@@ -289,6 +308,12 @@ class PokeGUI:
         self.log("system", "System initialized. Starting game loop...")
         self.update_loop()
         
+    def send_guidance(self):
+        if self.guidance_var.get():
+            self.user_guidance = self.guidance_var.get()
+            self.log("user", f"Guidance set: {self.user_guidance}")
+            self.guidance_var.set("")
+
     def log(self, tag, message):
         """Log to both GUI, terminal, and file."""
         log_line = f"[{tag.upper()}] {message}"
@@ -403,20 +428,47 @@ class PokeGUI:
 
                 # Execute the path
                 for direction in result['path']:
-                    if direction == "up": self.pyboy.button('up')
-                    elif direction == "down": self.pyboy.button('down')
-                    elif direction == "left": self.pyboy.button('left')
-                    elif direction == "right": self.pyboy.button('right')
-                    self.pyboy.tick()
-                    for _ in range(8): self.pyboy.tick()  # Small delay between moves
+                    # Press button
+                    if direction == "up": self.pyboy.button_press('up')
+                    elif direction == "down": self.pyboy.button_press('down')
+                    elif direction == "left": self.pyboy.button_press('left')
+                    elif direction == "right": self.pyboy.button_press('right')
+                    
+                    # Hold for 8 frames
+                    for _ in range(8): self.pyboy.tick()
+                    
+                    # Release button
+                    if direction == "up": self.pyboy.button_release('up')
+                    elif direction == "down": self.pyboy.button_release('down')
+                    elif direction == "left": self.pyboy.button_release('left')
+                    elif direction == "right": self.pyboy.button_release('right')
+                    
+                    # Wait before next move
+                    for _ in range(10): self.pyboy.tick()
             else:
                 self.log("warning", f"Path calculation failed - no route to ({target_x}, {target_y})")
 
         return summary
     
-    def ai_thread_func(self, img_b64, state_text, feedback):
-        response = self.agent.get_action(img_b64, state_text, feedback)
-        self.ai_queue.put(response)
+    def ai_thread_func(self, img_b64, state_text, feedback, guidance=""):
+        max_retries = 3
+        for i in range(max_retries):
+            try:
+                # On retry, try without image to see if that helps
+                current_img = img_b64 if i == 0 else None
+                response = self.agent.get_action(current_img, state_text, feedback, guidance)
+                # Check if response is valid (has content or tool calls)
+                if response.content or response.tool_calls:
+                    self.ai_queue.put(response)
+                    return
+                else:
+                    print(f"[WARNING] AI returned empty response (attempt {i+1}/{max_retries})")
+                    if i == max_retries - 1:
+                        self.ai_queue.put(response) # Put the empty response so main loop handles it
+            except Exception as e:
+                print(f"[ERROR] AI thread error: {e}")
+                if i == max_retries - 1:
+                    self.ai_queue.put(f"Error: {e}")
 
     def update_loop(self):
         # Tick PyBoy
@@ -483,6 +535,8 @@ class PokeGUI:
                             self.log("ai", "No valid action taken.")
                     else:
                         self.log("ai", "No action taken.")
+                else:
+                    self.log("warning", "AI returned empty response (no content, no tool calls).")
                     
         except queue.Empty:
             pass
@@ -501,8 +555,8 @@ class PokeGUI:
             
             # Generate Feedback
             feedback = ""
-            if self.last_action == "key_press" and x == self.last_x and y == self.last_y:
-                feedback = "Your last movement action did NOT change your location. You are likely walking into a wall. Try a different direction."
+            if self.last_action == "calculate_path" and x == self.last_x and y == self.last_y:
+                feedback = "Your last movement action did NOT change your location. You might be blocked by a wall OR stuck in a dialogue. If you see text, press 'A' to advance."
                 self.log("warning", feedback)
             
             self.last_x = x
@@ -511,8 +565,11 @@ class PokeGUI:
             self.log("system", f"State: {state_text.strip()}")
             self.log("system", "Requesting AI action...")
             
+            guidance = self.user_guidance
+            self.user_guidance = "" # Clear after sending
+            
             self.ai_thinking = True
-            threading.Thread(target=self.ai_thread_func, args=(img_b64, state_text, feedback), daemon=True).start()
+            threading.Thread(target=self.ai_thread_func, args=(img_b64, state_text, feedback, guidance), daemon=True).start()
 
         self.root.after(16, self.update_loop) # ~60 FPS
 

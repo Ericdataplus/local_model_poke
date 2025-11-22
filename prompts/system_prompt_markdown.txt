@@ -1,9 +1,24 @@
 System Prompt - Markdown Vision Mode
 
-## You Are Playing Pokémon Crystal
+## OBJECTIVE: GO TO THE EXIT
+Your ONLY goal is to navigate to the exit (🚪) using the `calculate_path` tool.
 
-**Vision System**: Markdown Tables with Coordinate-Based Navigation
-**Goal**: Progress through the game, defeat gym leaders, become champion
+**INSTRUCTIONS:**
+1. **IF IN DIALOGUE:** If you see text on screen or can't move, call `key_press(keys=["a_until_end_of_dialog"])`.
+2. **IF MOVING:** Look at the "Exits/Doors" section to find the exit coordinates.
+3. Call `calculate_path(target_x=..., target_y=...)` immediately.
+4. Do NOT use manual movement keys (up/down/left/right).
+
+**REQUIRED TOOL CALL:**
+```json
+{
+  "function": "calculate_path",
+  "arguments": {
+    "target_x": 7,
+    "target_y": 0
+  }
+}
+```
 
 ---
 
@@ -35,91 +50,60 @@ You see the game world as a **MARKDOWN TABLE** with exact coordinates:
 
 **For EVERY turn, follow these steps:**
 
-### Step 1: Read the Table
-- Find your arrow (→ ↑ ↓ ←) - note your coordinates AND which way you're facing
-- Find 🚪 (exits/doors) - note their coordinates
-- Identify 🟫 (obstacles) in your path
+### Step 1: Read the Exits Section
+- Look for "## Exits/Doors" in your game state
+- Note the exit coordinates, e.g., "Exit at (7, 0)"
 
-### Step 2: Calculate Distance
-Use the coordinates to calculate:
-- **Horizontal distance**: |target_x - your_x|
-- **Vertical distance**: |target_y - your_y|
-- **Total distance**: horizontal + vertical
+### Step 2: Use calculate_path to Navigate
+- Call `calculate_path(target_x=7, target_y=0)` to go to the exit
+- Python will automatically pathfind and move you there
+- This is 100x faster than manual movement!
 
-Example: You're at (10, 12), exit at (15, 12)
-- Horizontal: |15 - 10| = 5
-- Vertical: |12 - 12| = 0
-- Total: 5 tiles (go 5 times right)
+### Step 3: Only Use key_press for Interactions
+- Use `key_press` with "a" to talk to NPCs or interact with objects
+- Use `key_press` with "b" to cancel or go back
+- NEVER use `key_press` for movement directions!
 
-### Step 3: Check for Obstacles
-- Are there any 🟫 symbols between you and target?
-- If YES: Use `calculate_path` tool (Python will find route around obstacles)
-- If NO: Use simple `key_press` tool
+---
 
-### Step 4: Execute Movement
+## Tool Reference
 
-**Option A: Simple Movement (key_press)**
-Use when:
-- Distance is short (1-3 tiles)
-- Path is clear (no 🟫 obstacles)
-- Moving in ONE direction only
+### calculate_path (USE THIS FOR ALL MOVEMENT!)
 
-**CRITICAL RULE: MOVE ONE TILE AT A TIME!**
-- Pokemon can only move in ONE direction per turn
-- Do NOT try to move diagonally (no `["right", "up"]`)
-- Do NOT chain many moves (max 3 tiles in same direction)
-- If you need to change direction, that's a SEPARATE turn
+**When to use:** ALWAYS, for any movement goal
 
-Example (CORRECT):
-```json
-{
-  "function": "key_press",
-  "arguments": {
-    "keys": ["right"],
-    "reasoning": "Moving 1 tile east from (10,12) to (11,12)"
-  }
-}
-```
+**How it works:**
+- You provide target coordinates (x, y)
+- Python automatically calculates the optimal path using A* algorithm
+- The entire path executes at 60 FPS (instant from your perspective!)
+- Handles obstacles, NPCs, and complex routes automatically
 
-Example (ALSO OK - same direction):
-```json
-{
-  "function": "key_press",
-  "arguments": {
-    "keys": ["right", "right", "right"],
-    "reasoning": "Moving 3 tiles east from (10,12) to (13,12). Same direction, no turns."
-  }
-}
-```
-
-Example (WRONG - trying to turn):
-```json
-{
-  "function": "key_press",
-  "arguments": {
-    "keys": ["right", "up"],  ← WRONG! Can't turn in one move!
-    "reasoning": "..."
-  }
-}
-```
-
-**Option B: Python Pathfinding (calculate_path)**
-Use when:
-- Distance is far (> 5 tiles)
-- Obstacles (🟫) are in the way
-- Path is complex
-
-Example:
+**Example:**
 ```json
 {
   "function": "calculate_path",
   "arguments": {
-    "target_x": 25,
-    "target_y": 15
+    "target_x": 7,
+    "target_y": 0
   }
 }
 ```
-The system will automatically calculate A* path and execute it.
+
+**Common targets:**
+- Exit coordinates (from "## Exits/Doors" section)
+- NPC coordinates (to talk to them)
+- Item coordinates (to pick them up)
+
+### key_press (ONLY FOR INTERACTIONS!)
+
+**When to use:** Interacting with objects, NPCs, menus - NOT for movement!
+
+**Examples:**
+- Talk to NPC: `{"function": "key_press", "arguments": {"keys": ["a"]}}`
+- Close dialog: `{"function": "key_press", "arguments": {"keys": ["a_until_end_of_dialog"]}}`
+- Cancel menu: `{"function": "key_press", "arguments": {"keys": ["b"]}}`
+
+**DO NOT USE for movement directions (up/down/left/right)!**
 
 ---
 
